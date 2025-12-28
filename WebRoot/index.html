@@ -1,0 +1,199 @@
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Simple Java HTTP Server</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<br>-->
+<!--<h1>Welcome to our server page!</h1>-->
+<!--<br>-->
+<!--<h2>This page was delivered using an Https Server made in Java.</h2>-->
+<!--<br>-->
+<!--<br>-->
+<!--<img src="logo.png"/>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ultimate Server Test Suite</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: #e0e0e0; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: #1e1e1e; border: 1px solid #333; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        h1 { text-align: center; color: #007bff; margin-bottom: 30px; }
+        h2 { color: #bb86fc; font-size: 1.1rem; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
+        .btn { background: #03dac6; color: #000; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; font-weight: bold; font-size: 0.9rem; margin: 5px 0; }
+        .btn-warning { background: #cf6679; }
+        .btn-info { background: #3700b3; color: white; }
+        code { background: #000; color: #0f0; padding: 2px 5px; border-radius: 3px; }
+        #userGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 10px; }
+        .dot { height: 10px; width: 10px; background: #444; border-radius: 50%; display: inline-block; }
+        .success { background: #03dac6; box-shadow: 0 0 5px #03dac6; }
+    </style>
+</head>
+<body>
+
+<h1>Java HTTP Server: Comprehensive Test Suite</h1>
+
+<div class="grid">
+
+    <!-- 1. MULTI-USER CONCURRENCY (Tests Core/HttpConnectionWorkerThread) -->
+    <div class="card">
+        <h2>1. Concurrency & Multi-Threading</h2>
+        <p>Spawns 25 parallel threads on the server instantly.</p>
+        <button class="btn" onclick="stressTest()">Run 25-User Stress Test</button>
+        <div id="userGrid"></div>
+        <p><small>Check console for 25 simultaneous <code>Connection accepted</code> logs.</small></p>
+    </div>
+
+    <!-- 2. FILE IO & MIME (Tests Core.IO/WebRootHandler) -->
+    <div class="card">
+        <h2>2. File System & Media Types</h2>
+        <p>Tests <code>WebRootHandler</code> extension-to-MIME mapping:</p>
+        <a href="logo.png" target="_blank" class="btn btn-info">Test image/png</a>
+        <a href="favicon.ico" target="_blank" class="btn btn-info">Test image/x-icon</a>
+        <a href="index.html" target="_blank" class="btn btn-info">Test text/html</a>
+    </div>
+
+    <!-- 3. HTTP PARSER & METHODS (Tests Http/HttpParser & Http/HttpMethod) -->
+    <div class="card">
+        <h2>3. Protocol & Method Support</h2>
+        <p>Tests <code>HttpParser</code> handling of different HTTP verbs:</p>
+        <button class="btn" onclick="testMethod('HEAD')">Test HEAD Method</button>
+        <form action="/" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-warning">Test Unsupported POST</button>
+        </form>
+        <p><small>POST triggers <code>501 Not Implemented</code>.</small></p>
+    </div>
+
+    <!-- 4. EXCEPTION HANDLING (Tests Http/BadHttpVersionException etc.) -->
+    <div class="card">
+        <h2>4. Error & Exception Handling</h2>
+        <p>Tests if server crashes or responds gracefully:</p>
+        <a href="/non-existent-file.txt" target="_blank" class="btn btn-warning">Trigger 404 Not Found</a>
+        <button class="btn btn-warning" onclick="testBadProtocol()">Trigger 400 Bad Request</button>
+    </div>
+
+    <!-- 5. CONFIGURATION DATA (Tests Config/Configuration) -->
+    <div class="card">
+        <h2>5. Server Config Metadata</h2>
+        <p>Current Connection: <code>localhost:8080</code></p>
+        <p>Active WebRoot: <code>/WebRoot</code></p>
+        <p>Supported Version: <code>HTTP/1.1</code></p>
+    </div>
+
+    <!-- 6. MESSAGE INTEGRITY (Tests Http/HttpMessage) -->
+    <div class="card">
+        <h2>6. Response Header Integrity</h2>
+        <p>Check browser Network tab for:</p>
+        <ul>
+            <li><code>Content-Length</code> (Byte count)</li>
+            <li><code>Content-Type</code> (MIME)</li>
+            <li><code>Connection: close</code></li>
+        </ul>
+    </div>
+
+    <!-- 7. SOCKET PERSISTENCE TEST (Tests Socket & Thread Lifecycle) -->
+    <div class="card">
+        <h2>7. Socket Reuse & Keep-Alive</h2>
+        <p>Tests if the server keeps the socket open for multiple resource fetches (HTML + Image + Icon) or opens a new thread for each.</p>
+        <button class="btn btn-info" onclick="testKeepAlive()">Test Sequential Fetch</button>
+        <p id="socketStatus"><small>Check console to see if one Worker Thread handles multiple logs.</small></p>
+    </div>
+
+    <!-- 8. DIRECTORY TRAVERSAL SECURITY (Tests WebRootHandler Security) -->
+    <div class="card">
+        <h2>8. Security: Path Traversal Test</h2>
+        <p>Tests if <code>WebRootHandler</code> prevents access to files outside the <code>WebRoot</code> folder (e.g., <code>../../pom.xml</code>).</p>
+        <a href="/../pom.xml" target="_blank" class="btn btn-warning">Try Illegal Access</a>
+        <p><small>A perfect server should return <b>404</b> or <b>403</b>, never the file content.</small></p>
+    </div>
+
+    <!-- 9. LIVE SERVER INSPECTOR (Displays Java Response Metadata) -->
+    <div class="card" style="grid-column: span 2;">
+        <h2>9. Live Server Inspector</h2>
+        <p>This panel shows the exact data returned by your <code>HttpConnectionWorkerThread</code>:</p>
+        <button class="btn btn-info" onclick="inspectRequest('/logo.png')">Inspect logo.png Request</button>
+        <button class="btn btn-info" onclick="inspectRequest('/index.html')">Inspect index.html Request</button>
+
+        <div id="inspectorBox" style="background: #000; color: #0f0; padding: 15px; margin-top: 10px; border-radius: 5px; font-family: monospace; white-space: pre; border: 1px solid #333;">
+            > Waiting for inspection...
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function stressTest() {
+        const grid = document.getElementById('userGrid');
+        grid.innerHTML = '';
+        for (let i = 0; i < 25; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.id = 'dot-' + i;
+            grid.appendChild(dot);
+
+            fetch('/favicon.ico', { cache: 'no-store' }).then(() => {
+                document.getElementById('dot-' + i).classList.add('success');
+            });
+        }
+    }
+
+    function testMethod(method) {
+        fetch('/', { method: method }).then(res => {
+            alert('Method: ' + method + '\nStatus: ' + res.status + ' ' + res.statusText);
+        });
+    }
+
+    function testBadProtocol() {
+        alert("To test 'Bad Request', the browser blocks invalid HTTP via fetch. Use 'Request.txt' provided in the project root to see this test case!");
+    }
+
+    async function testKeepAlive() {
+        const status = document.getElementById('socketStatus');
+        status.innerText = "Fetching HTML...";
+        await fetch('index.html');
+        status.innerText = "HTML Received. Fetching Logo on same logic...";
+        await fetch('logo.png');
+        status.innerText = "Logo Received. Sequence Complete.";
+        alert("Sequential Test Finished. Look at the timestamps in your IntelliJ console to see how the worker handled these in order.");
+    }
+
+    async function inspectRequest(url) {
+        const box = document.getElementById('inspectorBox');
+        box.innerHTML = `> Sending Request for ${url}...`;
+
+        try {
+            const startTime = performance.now();
+            const response = await fetch(url, { cache: 'no-store' });
+            const endTime = performance.now();
+
+            let headerText = "";
+            response.headers.forEach((value, key) => {
+                headerText += `${key}: ${value}\n`;
+            });
+
+            box.innerHTML = `
+[RESPONSE FROM JAVA SERVER]
+---------------------------
+Status:      ${response.status} ${response.statusText}
+MIME Type:   ${response.headers.get('content-type')}
+Size:        ${response.headers.get('content-length')} bytes
+Round Trip:  ${(endTime - startTime).toFixed(2)} ms
+
+[HEADERS RECEIVED]
+${headerText}
+            `;
+        } catch (error) {
+            box.innerHTML = `<span style="color: #cf6679;">> Error: Could not connect to Java Server.</span>`;
+        }
+    }
+
+</script>
+</body>
+</html>
