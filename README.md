@@ -74,26 +74,74 @@ See `pom.xml` for the complete dependency list and build configuration.
 
 ```
 http-server-JAVA-JAVAFX/
-├── src/
+├── 📁 src/
 │   ├── main/
-│   │   ├── java/
-│   │   │   └── com/JavaWebServer/
-│   │   │       ├── httpserver/
-│   │   │       │   ├── HttpServer.java          # Server entry point
-│   │   │       │   ├── ServerListenerThread.java # Request listener
-│   │   │       │   ├── HttpRequestHandler.java   # Request processing
-│   │   │       │   ├── Configuration.java        # Server configuration
-│   │   │       │   └── ConfigurationManager.java # Config management
-│   │   │       └── ui/
-│   │   │           ├── ServerGUI.java            # JavaFX main application
-│   │   │           ├── ServerController.java     # GUI logic controller
-│   │   │           └── RequestLog.java           # Request log model
+│   │   ├── java/com/JavaWebServer/
+│   │   │   │
+│   │   │   ├── 🌐 http/                # HTTP Protocol Implementation
+│   │   │   │       BadHttpVersionException.java
+│   │   │   │       HttpHeaderName.java
+│   │   │   │       HttpMessage.java
+│   │   │   │       HttpMethod.java
+│   │   │   │       HttpParser.java
+│   │   │   │       HttpParsingException.java
+│   │   │   │       HttpRequest.java
+│   │   │   │       HttpResponse.java
+│   │   │   │       HttpStatusCode.java
+│   │   │   │       HttpVersion.java
+│   │   │   │
+│   │   │   ├── 🖥️ httpserver/          # Server Core
+│   │   │   │   │   HttpServer.java
+│   │   │   │   │   ServerEventListener.java
+│   │   │   │   │
+│   │   │   │   ├── config/            # Configuration management
+│   │   │   │   │       Configuration.java
+│   │   │   │   │       ConfigurationManager.java
+│   │   │   │   │       HttpConfigurationException.java
+│   │   │   │   │
+│   │   │   │   ├── core/              # Threading & connection handling
+│   │   │   │   │   │   HttpConnectionWorkerThread.java
+│   │   │   │   │   │   ServerListenerThread.java
+│   │   │   │   │   │   SessionManager.java
+│   │   │   │   │   │
+│   │   │   │   │   └── io/            # File serving
+│   │   │   │   │           ReadFileException.java
+│   │   │   │   │           WebRootHandler.java
+│   │   │   │   │           WebRootNotFoundException.java
+│   │   │   │   │
+│   │   │   │   └── util/              # JSON utilities
+│   │   │   │           Json.java
+│   │   │   │
+│   │   │   └── 🎨 ui/                  # JavaFX User Interface
+│   │   │           ServerController.java
+│   │   │           ServerGUI.java
+│   │   │
 │   │   └── resources/
-│   │       ├── http.json                        # Default configuration
-│   │       └── logback.xml                      # Logging configuration
-│   └── test/                                     # Unit tests
-├── WebRoot/                                      # Static files to serve
-├── target/                                       # Compiled output (generated)
+│   │           http.json              # Server configuration
+│   │           logback.xml            # Logging configuration
+│   │
+│   └── test/                          # Unit tests
+│       └── java/com/JavaWebServer/
+│           ├── http/
+│           │       HttpHeadersParserTest.java
+│           │       HttpParserTest.java
+│           │       HttpVersionTest.java
+│           │
+│           └── httpserver/
+│               └── core/
+│                   └── io/
+│                           WebRootHandlerTest.java
+│
+├── 📁 WebRoot/                         # Static files to serve
+│       favicon.ico
+│       index.html
+│       logo.png
+│
+└── 📁 target/                          # Maven compiled output (auto-generated)
+    ├── classes/
+    ├── generated-sources/
+    ├── maven-status/
+    └── test-classes/
 ├── pom.xml                                       # Maven configuration
 ├── Request.txt                                   # Sample HTTP request
 └── README.md                                     # This file
