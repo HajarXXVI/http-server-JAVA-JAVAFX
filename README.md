@@ -1,52 +1,52 @@
 # HTTP Server with JavaFX GUI
 
-A simple yet functional HTTP web server built with Java and JavaFX, featuring a graphical user interface for easy management and monitoring.
+A lightweight HTTP web server built with Java and JavaFX, featuring a graphical user interface for managing and monitoring server operations.
 
 ## 📋 Overview
 
-This project implements a lightweight HTTP server that listens for HTTP requests and serves content from the `WebRoot` directory. The server includes a JavaFX-based GUI for starting, stopping, and monitoring server operations. It supports basic HTTP/1.1 protocol features and can handle concurrent client connections.
+This project implements a functional HTTP server that handles HTTP requests and serves static content from the `WebRoot` directory. The server includes a JavaFX-based GUI for easy configuration, control, and real-time monitoring of server activity.
 
 ## ✨ Features
 
-- **HTTP Server**: Handles GET/POST requests with HTTP/1.1 protocol support
-- **JavaFX GUI**: User-friendly graphical interface for server management
-- **Real-time Monitoring**: View server status, active connections, and request logs
-- **Static File Serving**: Serve HTML, CSS, JavaScript, and other static assets from the `WebRoot` directory
-- **Configurable Port**: Change server port through the GUI
-- **Request Logging**: View incoming HTTP requests in real-time
-- **Easy Control**: Start/stop server with simple button clicks
+- **HTTP Server Core**: Full HTTP/1.1 protocol support with GET/POST request handling
+- **JavaFX Control Panel**: User-friendly GUI for server management
+- **Real-time Monitoring**: Live request logs, connection statistics, and server status
+- **Static File Serving**: Serve HTML, CSS, JavaScript, images, and other static assets
+- **Dynamic Port Configuration**: Change server port through the GUI interface
+- **Request Logging**: View detailed incoming HTTP requests with metadata
+- **Server Control**: Start, stop, and restart server operations with button clicks
+- **Statistics Dashboard**: Track total requests, requests per second, and uptime
 
 ## 🛠️ Tech Stack
 
 - **Language**: Java 11+
-- **Build Tool**: Maven
 - **GUI Framework**: JavaFX 21.0.1
-- **JSON Processing**: Jackson (for potential JSON API support)
-- **Logging**: SLF4J with Logback
+- **Build Tool**: Maven 3.6+
+- **JSON Processing**: Jackson Core & Databind (2.9.x)
+- **Logging**: SLF4J API with Logback
 - **Testing**: JUnit Jupiter 5
 
 ## 📦 Dependencies
 
-```xml
-<!-- Core Dependencies -->
-- JavaFX Controls & FXML (21.0.1)
-- Jackson Core & Databind (2.9.x)
-- SLF4J API (1.7.29)
-- Logback Classic (1.2.3)
-- JUnit Jupiter (5.9.3+)
-```
+The project uses Maven for dependency management. Key dependencies include:
 
-See `pom.xml` for complete dependency list.
+- **JavaFX Controls & FXML** (21.0.1) - GUI components
+- **Jackson Core & Databind** (2.9.x) - JSON parsing
+- **SLF4J API** (1.7.29) - Logging facade
+- **Logback Classic** (1.2.3) - Logging implementation
+- **JUnit Jupiter** (5.9.3+) - Unit testing framework
+
+See `pom.xml` for the complete dependency list and build configuration.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - Java 11 or higher
-- Maven 3.6+
-- Git
+- Maven 3.6 or later
+- Git (for cloning the repository)
 
-### Installation
+### Installation & Build
 
 1. **Clone the repository**
    ```bash
@@ -59,7 +59,7 @@ See `pom.xml` for complete dependency list.
    mvn clean install
    ```
 
-3. **Run with Maven**
+3. **Run with Maven (GUI)**
    ```bash
    mvn javafx:run
    ```
@@ -78,32 +78,48 @@ http-server-JAVA-JAVAFX/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/JavaWebServer/
-│   │   │       ├── httpserver/     # HTTP server implementation
-│   │   │       │   └── HttpServer.java
-│   │   │       └── ui/             # JavaFX GUI components
-│   │   │           └── ServerGUI.java
+│   │   │       ├── httpserver/
+│   │   │       │   ├── HttpServer.java          # Server entry point
+│   │   │       │   ├── ServerListenerThread.java # Request listener
+│   │   │       │   ├── HttpRequestHandler.java   # Request processing
+│   │   │       │   ├── Configuration.java        # Server configuration
+│   │   │       │   └── ConfigurationManager.java # Config management
+│   │   │       └── ui/
+│   │   │           ├── ServerGUI.java            # JavaFX main application
+│   │   │           ├── ServerController.java     # GUI logic controller
+│   │   │           └── RequestLog.java           # Request log model
 │   │   └── resources/
-│   └── test/                        # Unit tests
-├── WebRoot/                         # Static files to serve
-├── pom.xml                          # Maven configuration
-├── Request.txt                      # Sample HTTP request
-└── README.md                        # This file
+│   │       ├── http.json                        # Default configuration
+│   │       └── logback.xml                      # Logging configuration
+│   └── test/                                     # Unit tests
+├── WebRoot/                                      # Static files to serve
+├── target/                                       # Compiled output (generated)
+├── pom.xml                                       # Maven configuration
+├── Request.txt                                   # Sample HTTP request
+└── README.md                                     # This file
 ```
 
 ## 💻 Usage
 
-### Starting the Server
+### Starting the Server (GUI Mode)
 
-1. Run the application:
+1. **Build and run the application**
    ```bash
    mvn javafx:run
    ```
 
-2. The JavaFX GUI window will open
+2. **JavaFX GUI window opens** with configuration panel
 
-3. Click the **Start Server** button to begin listening for requests
+3. **Configure server settings**:
+   - Set listening port (default: 8080)
+   - Select WebRoot directory (default: `./WebRoot`)
 
-4. The server will listen on the configured port (default: 8080)
+4. **Click "Start Server"** button to begin accepting requests
+
+5. **Monitor in real-time**:
+   - View active connections
+   - Check incoming requests in the log table
+   - Track server statistics
 
 ### Accessing the Server
 
@@ -115,44 +131,99 @@ curl http://localhost:8080/
 
 # Using a web browser
 Open http://localhost:8080/ in your browser
+
+# Request a specific file
+curl http://localhost:8080/index.html
 ```
 
 ### Configuration
 
-Server settings can be adjusted through the GUI:
-- **Port**: Change the listening port (default: 8080)
-- **Web Root**: Configure the directory for static files
+Configuration can be done through:
+
+1. **GUI Interface**:
+   - Port field - Change listening port
+   - WebRoot field - Select content directory
+   - Browse button - File chooser for WebRoot
+
+2. **Configuration File** (`http.json`):
+   ```json
+   {
+     "port": 8080,
+     "webroot": "./WebRoot"
+   }
+   ```
+
+### Command Line Usage
+
+```bash
+# Run with default configuration (http.json)
+java -jar target/simplehttpserver-1.0-SNAPSHOT.jar
+
+# Run with custom configuration file
+java -jar target/simplehttpserver-1.0-SNAPSHOT.jar path/to/config.json
+```
 
 ## 🔍 How It Works
 
 ### Server Architecture
 
-1. **HttpServer**: The main server class that:
-   - Creates a ServerSocket listening on a specified port
+The server uses a multi-threaded architecture:
+
+1. **HttpServer Class**
+   - Main entry point
+   - Loads configuration
+   - Resolves WebRoot path
+   - Initializes ServerListenerThread
+
+2. **ServerListenerThread**
+   - Listens on configured port via ServerSocket
    - Accepts incoming client connections
-   - Spawns threads to handle each client request
-   - Processes HTTP requests and sends responses
+   - Spawns new thread for each client request
 
-2. **ServerGUI**: JavaFX interface that:
-   - Provides controls to start/stop the server
-   - Displays server status and statistics
-   - Shows real-time request logs
-   - Allows configuration of server settings
+3. **HttpRequestHandler**
+   - Processes individual HTTP requests
+   - Parses HTTP headers and method
+   - Locates requested resource
+   - Generates appropriate HTTP response
+   - Handles different status codes (200, 404, 400, etc.)
 
-### Request Handling
+4. **ServerGUI (JavaFX)**
+   - Provides user interface for server management
+   - Displays real-time request logs
+   - Shows server statistics
+   - Enables configuration changes
+   - Manages server lifecycle (start/stop/restart)
 
-When a client connects:
-1. Server reads the HTTP request
-2. Parses the request method (GET, POST, etc.)
-3. Determines the requested resource
-4. Looks up the file in the WebRoot directory
-5. Returns appropriate HTTP response (200, 404, etc.)
-6. Logs the request for monitoring
+5. **ServerController**
+   - Bridges GUI and server logic
+   - Handles user interactions
+   - Manages thread lifecycle
+   - Updates UI with server events
+
+### Request Processing Flow
+
+```
+Client Connection → ServerListenerThread → HttpRequestHandler
+                                              ↓
+                                    Parse HTTP Request
+                                              ↓
+                                    Validate Request
+                                              ↓
+                                    Locate Resource
+                                              ↓
+                                    Check File Exists
+                                              ↓
+                                    Read & Serve File
+                                              ↓
+                                    Send HTTP Response
+                                              ↓
+                                    Log Request
+```
 
 ### Sample HTTP Request
 
 ```http
-GET / HTTP/1.1
+GET /index.html HTTP/1.1
 Host: localhost:8080
 Connection: keep-alive
 User-Agent: Mozilla/5.0
@@ -160,128 +231,242 @@ Accept: text/html,application/xhtml+xml
 Accept-Language: en-US,en;q=0.9
 ```
 
-## 🧪 Testing
+### Sample HTTP Responses
 
-Run tests using Maven:
-
-```bash
-mvn test
-```
-
-## 📝 Example Responses
-
-### Successful Request (200 OK)
+**Successful Request (200 OK)**
 ```http
 HTTP/1.1 200 OK
 Content-Type: text/html; charset=UTF-8
 Content-Length: 1234
-Connection: keep-alive
+Connection: close
 
 <html>
-<!-- File content -->
+<!-- File content here -->
 </html>
 ```
 
-### File Not Found (404)
+**File Not Found (404)**
 ```http
 HTTP/1.1 404 Not Found
 Content-Type: text/html; charset=UTF-8
 Content-Length: 50
+Connection: close
 
 <html>
 <h1>404 - File Not Found</h1>
 </html>
 ```
 
+**Bad Request (400)**
+```http
+HTTP/1.1 400 Bad Request
+Content-Type: text/plain
+Content-Length: 20
+Connection: close
+
+Bad Request
+```
+
 ## 🎨 Supported MIME Types
 
-- `text/html` - HTML files
-- `text/css` - CSS stylesheets
-- `text/javascript` - JavaScript files
-- `image/jpeg` - JPEG images
-- `image/png` - PNG images
-- `image/gif` - GIF images
-- `application/json` - JSON data
-- `application/pdf` - PDF documents
-- And more...
+The server recognizes and serves various file types:
+
+| Type | MIME Type |
+|------|-----------|
+| HTML | `text/html` |
+| CSS | `text/css` |
+| JavaScript | `text/javascript` |
+| Plain Text | `text/plain` |
+| JPEG | `image/jpeg` |
+| PNG | `image/png` |
+| GIF | `image/gif` |
+| JSON | `application/json` |
+| PDF | `application/pdf` |
+| XML | `application/xml` |
 
 ## 🔧 Build Configuration
 
-The project uses Maven with special plugins:
+Maven plugins used in the build process:
 
-- **Maven JAR Plugin**: Creates executable JAR with main class
-- **Maven Shade Plugin**: Packages all dependencies into a single uber-JAR
-- **JavaFX Maven Plugin**: Enables JavaFX module support and compilation
+1. **Maven JAR Plugin** - Creates executable JAR with main class
+2. **Maven Shade Plugin** - Packages all dependencies into a single uber-JAR
+3. **JavaFX Maven Plugin** - Enables JavaFX module support and compilation
+
+### Build Commands
 
 ```bash
-# Build a standalone JAR
+# Clean build
+mvn clean install
+
+# Package into JAR
 mvn clean package
 
-# This creates a fat JAR with all dependencies included
-java -jar target/simplehttpserver-1.0-SNAPSHOT.jar
+# Run tests
+mvn test
+
+# Run with JavaFX
+mvn javafx:run
+
+# Compile only
+mvn compile
 ```
 
 ## 📊 Logging
 
-The application uses SLF4J with Logback for logging. Log configuration can be found in `logback.xml`.
+The application uses **SLF4J** with **Logback** for logging output.
+
+### Log Configuration
+
+Log configuration is defined in `src/main/resources/logback.xml`.
 
 ### Log Levels
-- `INFO`: General information about server operations
-- `DEBUG`: Detailed debugging information
-- `ERROR`: Error messages and stack traces
+
+- `INFO` - General information about server operations and startup
+- `DEBUG` - Detailed debugging information for development
+- `ERROR` - Error messages and exception stack traces
+- `WARN` - Warning messages for potential issues
+
+### Example Log Output
+
+```
+[INFO] Server starting...
+[INFO] No configuration file provided, using default http.json from resources
+[INFO] Using Port: 8080
+[INFO] Using WebRoot: ./WebRoot
+[INFO] Resolved WebRoot path: /home/user/project/WebRoot
+[INFO] Server listening on port: 8080
+[DEBUG] Client connected from: 127.0.0.1
+[INFO] Request: GET /index.html HTTP/1.1
+[INFO] Serving file: index.html (Content-Type: text/html)
+```
+
+## 🧪 Testing
+
+The project includes unit tests using JUnit Jupiter.
+
+### Running Tests
+
+```bash
+# Run all tests
+mvn test
+
+# Run specific test class
+mvn test -Dtest=HttpServerTest
+
+# Run with verbose output
+mvn test -X
+```
+
+### Test Coverage
+
+Tests are located in `src/test/java` and cover:
+- HTTP request parsing
+- File serving functionality
+- Configuration management
+- Server lifecycle operations
 
 ## 🐛 Troubleshooting
 
 ### Port Already in Use
-If port 8080 is already in use:
+
+**Error**: `Address already in use`
+
+**Solution**:
 ```bash
-# Change the port in the GUI and restart
-# Or use a different port: lsof -i :8080 (on macOS/Linux)
+# Find process using port 8080
+# macOS/Linux:
+lsof -i :8080
+
+# Windows:
+netstat -ano | findstr :8080
+
+# Kill the process and retry
+# Or change port in GUI before starting
 ```
 
 ### JavaFX Module Errors
-If you encounter JavaFX module errors:
-```bash
-# The pom.xml includes necessary configurations
-# Ensure Java 11+ is installed and properly configured
-```
 
-### Network Access Issues
-- Ensure the firewall allows connections on your configured port
-- Check that the server has started successfully in the GUI
-- Verify the host is accessible (use localhost or 127.0.0.1)
+**Error**: `module javafx.graphics not found`
+
+**Solution**:
+- Ensure Java 11+ is installed
+- Check `pom.xml` includes JavaFX plugins
+- Run Maven clean: `mvn clean install`
+
+### WebRoot Directory Not Found
+
+**Error**: `Webroot folder not found`
+
+**Solution**:
+1. Verify `WebRoot` directory exists in project root
+2. Use absolute path in configuration if relative path fails
+3. Check file permissions (directory must be readable)
+
+### Connection Issues
+
+**Problem**: Cannot connect to server
+
+**Checklist**:
+- [ ] Server has started successfully (no error messages)
+- [ ] Port number is correct
+- [ ] Firewall allows connections on the port
+- [ ] Using correct hostname (localhost, 127.0.0.1, or machine IP)
 
 ## 📈 Performance Considerations
 
-- **Concurrency**: Uses thread-per-client model for handling connections
-- **Memory**: Suitable for low to moderate traffic scenarios
-- **Scalability**: For production use, consider load balancing
+- **Concurrency Model**: Thread-per-client (spawns new thread for each request)
+- **Memory Usage**: Suitable for low to moderate traffic (< 100 concurrent connections)
+- **Latency**: Low latency for static file serving
+- **Throughput**: Depends on system resources and network bandwidth
+- **Scalability**: Consider load balancing or thread pool improvements for production
+
+### Optimization Tips
+
+- Minimize WebRoot file sizes
+- Compress static assets (CSS, JavaScript)
+- Use CDN for frequently accessed files
+- Monitor memory usage with high traffic
 
 ## 🔐 Security Notes
 
-⚠️ **This is a simple educational/development server. For production use:**
-- Implement proper input validation
-- Add HTTPS/SSL support
-- Implement authentication and authorization
-- Add security headers
-- Use established production web servers (Apache, Nginx)
+⚠️ **This is an educational/development server. For production use:**
+
+- [ ] **Input Validation**: Implement request validation and sanitization
+- [ ] **HTTPS/SSL**: Add SSL/TLS support for encrypted connections
+- [ ] **Authentication**: Implement user authentication if needed
+- [ ] **Authorization**: Add access control for sensitive resources
+- [ ] **Security Headers**: Add HTTP security headers (CSP, X-Frame-Options, etc.)
+- [ ] **Path Traversal**: Prevent directory traversal attacks (../ attacks)
+- [ ] **Rate Limiting**: Implement request rate limiting
+- [ ] **Use Production Servers**: Deploy with Apache, Nginx, or Tomcat for production
 
 ## 📚 Additional Resources
 
-- [Java HTTP Handling](https://docs.oracle.com/javase/tutorial/networking/sockets/index.html)
+- [Java Networking with Sockets](https://docs.oracle.com/javase/tutorial/networking/sockets/index.html)
 - [JavaFX Documentation](https://openjfx.io/)
-- [HTTP/1.1 Specification](https://tools.ietf.org/html/rfc7230)
+- [HTTP/1.1 Specification (RFC 7230)](https://tools.ietf.org/html/rfc7230)
 - [Maven Documentation](https://maven.apache.org/guides/)
+- [Jackson Documentation](https://github.com/FasterXML/jackson)
+- [Logback Documentation](http://logback.qos.ch/)
 
 ## 🤝 Contributing
 
 Contributions are welcome! To contribute:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/YourAmazingFeature
+   ```
+3. **Commit your changes**
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+4. **Push to the branch**
+   ```bash
+   git push origin feature/YourAmazingFeature
+   ```
+5. **Open a Pull Request**
 
 ## 📄 License
 
@@ -293,25 +478,38 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🎯 Future Enhancements
 
-- [ ] HTTPS/SSL support
-- [ ] Caching mechanisms
-- [ ] Compression support (gzip)
-- [ ] Virtual hosts
-- [ ] Advanced logging and analytics
+- [ ] HTTPS/SSL/TLS support for encrypted connections
+- [ ] Caching mechanisms for improved performance
+- [ ] HTTP compression support (gzip, deflate)
+- [ ] Virtual hosts support
+- [ ] Advanced logging and analytics dashboard
 - [ ] Docker containerization
 - [ ] REST API endpoints
 - [ ] Database connectivity
-- [ ] WebSocket support
+- [ ] WebSocket support for real-time communication
+- [ ] File upload functionality
+- [ ] Directory browsing
+- [ ] Custom error pages
 
-## 📞 Support
+## 📞 Support & Issues
 
 For issues, questions, or suggestions:
-1. Check existing [GitHub Issues](https://github.com/HajarXXV/http-server-JAVA-JAVAFX/issues)
-2. Open a new issue with detailed information
-3. Include error messages and steps to reproduce
+
+1. **Check existing issues**: [GitHub Issues](https://github.com/HajarXXV/http-server-JAVA-JAVAFX/issues)
+2. **Open a new issue** with:
+   - Clear title describing the problem
+   - Detailed description of the issue
+   - Error messages and logs
+   - Steps to reproduce
+   - Your environment (OS, Java version, Maven version)
+3. **Include environment details**:
+   - Java version: `java -version`
+   - Maven version: `mvn -version`
+   - Operating System
 
 ---
 
-**Last Updated**: 2026-05-07
-**Version**: 1.0-SNAPSHOT
-**Status**: Active Development
+**Last Updated**: 2026-05-07  
+**Version**: 1.0-SNAPSHOT  
+**Status**: Active Development  
+**Repository**: [HajarXXV/http-server-JAVA-JAVAFX](https://github.com/HajarXXV/http-server-JAVA-JAVAFX)
