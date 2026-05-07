@@ -1,24 +1,24 @@
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\BadHttpVersionException.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpHeaderName.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpMessage.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpMethod.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpParser.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpParsingException.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpRequest.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpResponse.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpStatusCode.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpVersion.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\config\Configuration.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\config\ConfigurationManager.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\config\HttpConfigurationException.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\HttpConnectionWorkerThread.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\io\ReadFileException.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\io\WebRootHandler.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\io\WebRootNotFoundException.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\ServerListenerThread.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\SessionManager.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\HttpServer.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\ServerEventListener.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\util\Json.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\ui\ServerController.java
-C:\Users\DELL\Documents\4IIR S1\JAVA avancé\java-http-server\SimpleHttpServer\src\main\java\com\JavaWebServer\ui\ServerGUI.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\BadHttpVersionException.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpHeaderName.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpMessage.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpMethod.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpParser.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpParsingException.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpRequest.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpResponse.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpStatusCode.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\http\HttpVersion.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\config\Configuration.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\config\ConfigurationManager.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\config\HttpConfigurationException.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\HttpConnectionWorkerThread.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\io\ReadFileException.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\io\WebRootHandler.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\io\WebRootNotFoundException.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\ServerListenerThread.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\core\SessionManager.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\HttpServer.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\ServerEventListener.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\httpserver\util\Json.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\ui\ServerController.java
+C:\Users\DELL\Desktop\SimpleHttpServer\src\main\java\com\JavaWebServer\ui\ServerGUI.java

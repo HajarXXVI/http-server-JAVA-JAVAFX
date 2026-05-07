@@ -14,9 +14,9 @@ public class HttpParser {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(HttpParser.class);
 
-    private static final int SP = 0x20; // 32
-    private static final int CR = 0x0D; // 13
-    private static final int LF = 0x0A; // 10
+    private static final int SP = 0x20; // équivalente à 32
+    private static final int CR = 0x0D; // équivalente à 13
+    private static final int LF = 0x0A; // équivalente à 10
 
     public HttpRequest parseHttpRequest(InputStream inputStream) throws HttpParsingException {
         InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.US_ASCII);
